@@ -3,7 +3,7 @@ services:
     name: multi-agent-server
     runtime: node
     plan: free
-    rootDir: server
+    rootDir: multi-agent-platform/server
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
