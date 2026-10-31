@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body, #root { height: 100%; }
+body { @apply bg-ink text-zinc-200 font-sans antialiased; }
+::selection { background: rgba(139, 92, 246, .45); }
+* { scrollbar-width: thin; scrollbar-color: #3f3f46 transparent; }
+:focus-visible { outline: 2px solid #22D3EE; outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn text-white bg-gradient-to-r from-violet to-[#6d4de0] hover:brightness-110 shadow-[0_0_24px_-8px_rgba(139,92,246,.9)]; }
+  .btn-ghost { @apply btn text-zinc-300 hover:bg-white/5 hover:text-white; }
+  .btn-outline { @apply btn border border-line text-zinc-200 hover:border-zinc-600 hover:bg-white/5; }
+  .btn-danger { @apply btn border border-red-500/30 text-red-300 hover:bg-red-500/10; }
+  .icon-btn { @apply inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-400 transition hover:bg-white/5 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent; }
+  .field { @apply w-full rounded-xl border border-line bg-ink px-3.5 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-500 transition focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/30; }
+  .label { @apply mb-1.5 block text-sm font-medium text-zinc-300; }
+  .panel { @apply rounded-2xl border border-line bg-card; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full border border-line bg-white/[.03] px-2 py-0.5 text-xs text-zinc-400; }
+}
+
+/* Streaming / running agent: border slowly pulses violet <-> cyan */
+@keyframes runGlow {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(139,92,246,.6), 0 0 26px -8px rgba(139,92,246,.6); }
+  50% { box-shadow: 0 0 0 1px rgba(6,182,212,.6), 0 0 26px -8px rgba(6,182,212,.5); }
+}
+.running-glow { animation: runGlow 2.6s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.caret::after { content: ''; display: inline-block; width: 7px; height: 1.05em; margin-left: 2px; vertical-align: -2px; background: #22D3EE; animation: blink 1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .running-glow, .caret::after { animation: none; } * { scroll-behavior: auto !important; } }
+
+/* Markdown */
+.md { @apply text-[15px] leading-7 text-zinc-200; overflow-wrap: anywhere; }
+.md > * + * { @apply mt-3; }
+.md h1, .md h2, .md h3, .md h4 { @apply font-display font-semibold text-white; }
+.md h1 { @apply text-xl; } .md h2 { @apply text-lg; } .md h3 { @apply text-base; }
+.md a { @apply text-cyan-soft underline underline-offset-2; }
+.md ul { @apply list-disc pl-5 space-y-1; } .md ol { @apply list-decimal pl-5 space-y-1; }
+.md blockquote { @apply border-l-2 border-violet pl-4 text-zinc-400; }
+.md code { @apply rounded bg-white/10 px-1.5 py-0.5 font-mono text-[13px] text-violet-soft; }
+.md pre { @apply overflow-x-auto rounded-xl border border-line bg-ink p-4; }
+.md pre code { @apply bg-transparent p-0 text-zinc-200; }
+.md table { @apply w-full text-sm; display: block; overflow-x: auto; }
+.md th, .md td { @apply border border-line px-3 py-1.5 text-left; }
+.md th { @apply bg-white/5; }
+.md hr { @apply border-line; }
